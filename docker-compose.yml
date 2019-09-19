@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+
+  opendatavisualization:
+    container_name: opendatavisualization
+    build:
+      context: ./opendatavisualization
+      dockerfile: Dockerfile
+    volumes:
+      - './opendatavisualization:/opendatavisualization'
+      - '/opendatavisualization/node_modules'
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
