@@ -1,1 +1,43 @@
 @import url("//cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css");
+$purple: #5C3977;
+$purple-fade: #78638F;
+$purple-wash: #CCC4D5;
+$orange: #EE5340;
+$orange-fade: #E57D6D;
+$orange-wash: #F5CEC8;
+$teal: #008C95;
+$teal-fade: #62A1A9;
+$teal-wash: #C4DCDE;
+$blue: #606EB2;
+$blue-fade: #818CBD;
+$blue-wash: #CFD4E6;
+$gray-100: #494F56;
+$gray-90: #5B6066;
+$gray-70: #7F8388;
+$gray-50: #A3A6A9;
+$gray-30: #C7C9CB;
+$gray-20: #DADBDD;
+$gray-10: #ECECED;
+$gray-5: #F3F3F4;
+
+body{
+  font-family: Montserrat Medium, sans-serif;
+  width:100%;
+  height:100%;
+}
+
+html, #root, .App{
+  width:100%;
+  height:100%;
+}
+.header{
+  background: $purple;
+  text-align: center;
+  color:white;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}

@@ -4,10 +4,10 @@ import L from 'leaflet'
 
 
 export const pointerIcon = new L.Icon({
-    iconUrl: require('../assets/Logo_mark.svg'),
-    iconRetinaUrl: require('../assets/Logo_mark.svg'),
+    iconUrl: require('../../assets/Logo_mark.svg'),
+    iconRetinaUrl: require('../../assets/Logo_mark.svg'),
     iconAnchor: [16, 16],
-    popupAnchor: [16, -44],
+    popupAnchor: [0, -10],
     iconSize: [32, 32],
 });
 
@@ -29,6 +29,7 @@ class Map extends React.Component {
                 animate={true}
                 easeLinearity={0.35}
             >
+
                 <TileLayer
                     url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                 />
