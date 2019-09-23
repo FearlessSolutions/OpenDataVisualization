@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.css';
-import Map from "./components/map";
+import MapContainer from "./components/MapContainer/mapContainer";
+import Header from "./components/header";
 
-function App() {
-  return (
-    <div className="App">
-      <Map/>
-    </div>
-  );
+function App (){
+        return (
+            <div className="App">
+                <Header/>
+                <MapContainer/>
+            </div>
+        );
 }
 
 export default App;
