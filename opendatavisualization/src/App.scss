@@ -37,6 +37,11 @@ html, #root, .App{
   color:white;
 }
 
+.footer {
+  background: $purple;
+  text-align: center;
+  color: white; }
+
 .leaflet-container {
   height: 100%;
   width: 100%;
