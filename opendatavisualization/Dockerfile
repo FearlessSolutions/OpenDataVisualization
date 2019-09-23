@@ -9,8 +9,9 @@ ENV PATH /opendatavisualization/node_modules/.bin:$PATH
 
 # install and cache app dependencies
 COPY package.json /opendatavisualization/package.json
+COPY package-lock.json /opendatavisualization/package-lock.json
 
-RUN npm install
+RUN npm ci
 
 # start app
 CMD ["npm", "start"]
