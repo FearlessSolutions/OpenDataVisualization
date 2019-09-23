@@ -14,8 +14,24 @@ html, #root, .App {
   text-align: center;
   color: white; }
 
+.footer {
+  background: #5C3977;
+  text-align: center;
+  color: white; }
+
 .leaflet-container {
   height: 100%;
   width: 100%; }
+
+.flex {
+  display: flex;
+  width: 100vw;
+  height: 100vh; }
+
+.left {
+  flex: 20; }
+
+.right {
+  flex: 80; }
 
 /*# sourceMappingURL=App.css.map */
