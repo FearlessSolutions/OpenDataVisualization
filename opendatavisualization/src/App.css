@@ -14,6 +14,11 @@ html, #root, .App {
   text-align: center;
   color: white; }
 
+  .footer {
+    background: #5C3977;
+    text-align: center;
+    color: white; }
+
 .leaflet-container {
   height: 100%;
   width: 100%; }
