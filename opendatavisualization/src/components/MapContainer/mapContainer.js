@@ -1,7 +1,8 @@
 import React from 'react'
 import Map from "./map";
 import DataChooser from "./dataChooser";
-import {fetchData, DATA_SETS} from "../../DataProviders/Socrata";
+import {fetchData} from "../../DataProviders/Socrata";
+import MapControls from "./mapControls";
 
 class MapContainer extends React.Component {
     constructor(props){
@@ -28,14 +29,17 @@ class MapContainer extends React.Component {
 
     render(props){
         return(
-            <div className={"full-size"}>
-                {this.state.data_set ? <div>Selected Data Set is: {DATA_SETS[this.state.data_set].name}</div>: ""}
-                There are {this.state.data.length} data points collected
-                {this.state.data_set ?
+            <div className={"flex-1"}>
 
-                    <Map data_set={this.state.data_set} data={this.state.data}/>
+                {this.state.data_set ?
+                    <div className={"flex"}>
+                        <MapControls data_set={this.state.data_set} data={this.state.data}  setDataSet={this.setDataSet}/>
+                        <Map data_set={this.state.data_set} data={this.state.data}/>
+                    </div>
                     :
-                    <DataChooser value={this.state.data_set} setDataSet={this.setDataSet}/>
+                    <div className={"v-center center"}>
+                        <DataChooser value={this.state.data_set} setDataSet={this.setDataSet}/>
+                    </div>
                 }
             </div>
         )

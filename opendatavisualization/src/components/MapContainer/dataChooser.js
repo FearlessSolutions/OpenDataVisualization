@@ -13,7 +13,7 @@ class  DataChooser extends React.Component{
     render() {
         return (
             <div className={'dataChooser'}>
-                Please Choose a data set
+                <span>Please Choose a data set</span>
                 <select value={this.props.data_set} onChange={this.handleChange}>
                     <option value={""}/>
                 {Object.keys(DATA_SETS).map((dataSet) => {

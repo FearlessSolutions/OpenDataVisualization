@@ -16,10 +16,6 @@ export const pointerIcon = new L.Icon({
 class Map extends React.Component {
     render() {
         return (
-            <div className={"flex"}>
-                <div className={"left"}>
-                    Map CONTROLS
-                </div>
                 <LeafletMap
                     className={"right"}
                     center={[39.2903848,-76.6121893]}
@@ -47,12 +43,15 @@ class Map extends React.Component {
                         this.props.data.map((data)=>{
                             if (!isNaN(data.latitude) && !isNaN(data.longitude)) {
                                 return <Marker position={[data.latitude, data.longitude]}/>
+                            }else{
+                                return null
                             }
+
                         })
                     }
 
                 </LeafletMap>
-            </div>
+
         );
     }
 }

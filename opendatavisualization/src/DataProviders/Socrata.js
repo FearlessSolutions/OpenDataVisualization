@@ -12,11 +12,13 @@ export const DATA_SETS = {
         name:"CCTV Locations",
         description: "Closed circuit camera locations capturing activity within 256ft (~2 blocks).",
         type: "latlong",
-        fields: ["Owner", "RegistrationType"]
+        fields: ["cameraname", "owner", "registrationtype"],
+        id:"id",
+        filter: ["owner"]
     },
     "3i3v-ibrt":{
         name:"BPD Arrests",
-        description: "THe man is getting people down",
+        description: "The man is getting people down",
         type: "latlong",
         fields: ["Owner", "RegistrationType"]
     }

@@ -9,15 +9,27 @@ html, #root, .App {
   width: 100%;
   height: 100%; }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; }
+
+.flex-1 {
+  flex: 1; }
+
 .header {
   background: #5C3977;
   text-align: center;
-  color: white; }
+  color: white;
+  display: flex;
+  height: 10vh; }
 
 .footer {
   background: #5C3977;
   text-align: center;
-  color: white; }
+  color: white;
+  display: flex;
+  height: 5vh; }
 
 .leaflet-container {
   height: 100%;
@@ -26,12 +38,21 @@ html, #root, .App {
 .flex {
   display: flex;
   width: 100vw;
-  height: 100vh; }
+  height: 85vh; }
 
 .left {
   flex: 20; }
 
 .right {
   flex: 80; }
+
+.center {
+  margin: auto;
+  justify-content: center; }
+
+.v-center {
+  display: flex;
+  align-items: center;
+  height: 85vh; }
 
 /*# sourceMappingURL=App.css.map */
