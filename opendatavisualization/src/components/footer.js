@@ -1,11 +1,12 @@
 import React from 'react';
 
-var year = new Date(). getFullYear();
+let year = new Date().getFullYear();
 
 function Footer() {
+
     return (
     <div className={'footer'}>
-        <h4>Made with love by Fearless. Updated {year}</h4>
+        <h4 className={"center"}>Made with love by Fearless. Updated {year}</h4>
     </div>
     )
 }
