@@ -38,10 +38,13 @@ html, #root, .App {
 .flex {
   display: flex;
   width: 100vw;
-  height: 85vh; }
+  height: 85vh;
+  overflow-y: auto; }
 
 .left {
-  flex: 20; }
+  flex: 20;
+  height: 85vh;
+  overflow-y: auto; }
 
 .right {
   flex: 80; }

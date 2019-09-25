@@ -1,7 +1,7 @@
 import React from 'react'
 import Map from "./map";
 import DataChooser from "./dataChooser";
-import {fetchData} from "../../DataProviders/Socrata";
+import {DATA_SETS} from "../../DataProviders/Socrata";
 import MapControls from "./mapControls";
 
 class MapContainer extends React.Component {
@@ -18,7 +18,7 @@ class MapContainer extends React.Component {
     //Set a data set ID on the state
     setDataSet(id){
         this.setState({data_set:id});
-        fetchData(id, this.setData)
+        DATA_SETS[id].fetchData(id, this.setData)
     }
 
     //Set a data object onto the state

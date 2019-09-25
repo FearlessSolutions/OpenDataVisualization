@@ -6,26 +6,37 @@ export const DATA_SETS = {
         name:"Housing Permits",
         description: "Baltimore Housing's Office of Permits & Building Inspections enforces the Baltimore City Building Code, as well as state laws pertaining to construction and occupancy.",
         type:"location",
-        fields:["PermitNum", "PermitDescription", "Neighborhood"]
+        fields:["permitnum", "permitdescription", "neighborhood"],
+        id:"permitnum",
+        fetchData:fetchData
     },
     "h32e-c3r6":{
         name:"CCTV Locations",
         description: "Closed circuit camera locations capturing activity within 256ft (~2 blocks).",
-        type: "latlong",
         fields: ["cameraname", "owner", "registrationtype"],
         id:"id",
-        filter: ["owner"]
+        filter: ["owner"],
+        fetchData: fetchData
     },
     "3i3v-ibrt":{
         name:"BPD Arrests",
         description: "The man is getting people down",
-        type: "latlong",
-        fields: ["Owner", "RegistrationType"]
+        fields: ["chargedescription", "district", "age", "sex", "race"],
+        id:"arrest",
+        fetchData:fetchStringData
     }
 };
 
-export function fetchData(id, setData){
+function fetchData(id, setData){
     fetch(`${BASE_URL}/${id}`)
         .then(response => response.json())
         .then(data => setData( data ));
 }
+
+function fetchStringData(id, setData){
+    fetch(`${BASE_URL}/${id}?$where=latitude%20not%20like%20%27%27`)
+        .then(response => response.json())
+        .then(data => setData( data ));
+}
+
+
