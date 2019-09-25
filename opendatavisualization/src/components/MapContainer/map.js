@@ -34,30 +34,29 @@ class Map extends React.Component {
                     <TileLayer
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     />
+                    /*
+
                     <Marker position={[39.289615,-76.607805]} icon={pointerIcon}>
                         <Popup>
                             HERE IS FEARLESS
                         </Popup>
                     </Marker>
+
+                     */
                     {this.props.data.length > 0 &&
                         this.props.data.map((data)=>{
-                            // move location lat/long up
-                            if(!data.hasOwnProperty('latitude') && data.hasOwnProperty('location')){
-                                data.latitude = data.location.latitude
-                            }
-                            if(!data.hasOwnProperty('longitude') && data.hasOwnProperty('location')){
-                                data.longitude = data.location.longitude
-                            }
-
                             if (!isNaN(data.latitude) && !isNaN(data.longitude)) {
                                 return(
                                     <Marker position={[data.latitude, data.longitude]}>
+                                        /*
                                         <Popup>I am a popup</Popup>
                                         <Tooltip>I am a tooltip</Tooltip>
+                                         */
                                     </Marker>
                                 )
                             }
                             else{
+
                                 return null
                             }
 
