@@ -8,7 +8,7 @@ export const DATA_SETS = {
         type:"location",
         fields:["permitnum", "permitdescription", "neighborhood"],
         id:"permitnum",
-        fetchData:fetchData
+        fetchData:fetchLocationData
     },
     "h32e-c3r6":{
         name:"CCTV Locations",
@@ -39,4 +39,17 @@ function fetchStringData(id, setData){
         .then(data => setData( data ));
 }
 
+function fetchLocationData(id, setData){
+    fetch(`${BASE_URL}/${id}`)
+        .then(response => response.json())
+        .then((data) =>
+            {data.forEach((datum)=>{
+                if(datum.hasOwnProperty('location')){
+                    datum.latitude = datum.location.latitude;
+                    datum.longitude = datum.location.longitude;
+                }
+            });
+            setData( data )
+        });
+}
 
