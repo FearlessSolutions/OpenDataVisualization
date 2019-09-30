@@ -1,7 +1,7 @@
 import React from 'react';
-import {DATA_SETS} from '../../DataProviders/Socrata'
-class  DataChooser extends React.Component{
-    constructor(props){
+import PropTypes from 'prop-types';
+class DataChooser extends React.Component {
+    constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this)
     }
@@ -11,17 +11,23 @@ class  DataChooser extends React.Component{
     }
 
     render() {
+        const { data_set, data_sets } = this.props;
         return (
             <div className={'dataChooser'}>
                 <span>Please Choose a data set</span>
-                <select value={this.props.data_set} onChange={this.handleChange}>
-                    <option value={""}/>
-                {Object.keys(DATA_SETS).map((dataSet) => {
-                    return (<option value={dataSet}>{DATA_SETS[dataSet].name}</option>)
-                })}
+                <select value={data_set} onChange={this.handleChange}>
+                    {/* <option value={new Object()} /> */}
+                    {Object.keys(data_sets).map((dataSet) => {
+                        return (<option value={dataSet}>{data_sets[dataSet].name}</option>)
+                    })}
                 </select>
             </div>
         )
     }
+}
+DataChooser.propTypes = {
+    data_set: PropTypes.object,
+    data_sets: PropTypes.object,
+    setDataSet: PropTypes.func
 }
 export default DataChooser;

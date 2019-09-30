@@ -1,5 +1,5 @@
 import React from 'react'
-import {Map as LeafletMap, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
+import { Map as LeafletMap, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
 import L from 'leaflet'
 
 
@@ -16,25 +16,25 @@ export const pointerIcon = new L.Icon({
 class Map extends React.Component {
     render() {
         return (
-                <LeafletMap
-                    className={"right"}
-                    center={[39.2903848,-76.6121893]}
-                    zoom={14}
-                    minZoom={12}
-                    maxZoom={18}
-                    attributionControl={true}
-                    zoomControl={true}
-                    doubleClickZoom={true}
-                    scrollWheelZoom={true}
-                    dragging={true}
-                    animate={true}
-                    easeLinearity={0.35}
-                >
+            <LeafletMap
+                className={"right"}
+                center={[39.2903848, -76.6121893]}
+                zoom={14}
+                minZoom={12}
+                maxZoom={18}
+                attributionControl={true}
+                zoomControl={true}
+                doubleClickZoom={true}
+                scrollWheelZoom={true}
+                dragging={true}
+                animate={true}
+                easeLinearity={0.35}
+            >
 
-                    <TileLayer
-                        url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-                    />
-                    /*
+                <TileLayer
+                    url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                />
+                {/*
 
                     <Marker position={[39.289615,-76.607805]} icon={pointerIcon}>
                         <Popup>
@@ -42,28 +42,28 @@ class Map extends React.Component {
                         </Popup>
                     </Marker>
 
-                     */
-                    {this.props.data.length > 0 &&
-                        this.props.data.map((data)=>{
-                            if (!isNaN(data.latitude) && !isNaN(data.longitude)) {
-                                return(
-                                    <Marker position={[data.latitude, data.longitude]}>
-                                        /*
+                    */}
+                {this.props.data.length > 0 &&
+                    this.props.data.map((data) => {
+                        if (!isNaN(data.latitude) && !isNaN(data.longitude)) {
+                            return (
+                                <Marker position={[data.latitude, data.longitude]}>
+                                    {/*
                                         <Popup>I am a popup</Popup>
                                         <Tooltip>I am a tooltip</Tooltip>
-                                         */
-                                    </Marker>
-                                )
-                            }
-                            else{
+                                        */}
+                                </Marker>
+                            )
+                        }
+                        else {
 
-                                return null
-                            }
+                            return null
+                        }
 
-                        })
-                    }
+                    })
+                }
 
-                </LeafletMap>
+            </LeafletMap>
 
         );
     }
