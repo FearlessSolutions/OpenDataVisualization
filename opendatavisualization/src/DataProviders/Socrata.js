@@ -1,6 +1,6 @@
 //framework for a data provider interface.  If Socrata goes away this one will need to be recreated for another provider
-
-const BASE_URL = "https://data.baltimorecity.gov";
+const DOMAIN = "data.baltimorecity.gov"
+const BASE_URL = `https://${DOMAIN}`;
 export const DATA_SETS = {
     "fesm-tgxf": {
         name: "Housing Permits",
@@ -34,7 +34,7 @@ function fetchData(id, setData) {
 }
 
 function fetchStringData(id, setData) {
-    fetch(`${BASE_URL}/resource/${id}?$where=latitude%20not%20like%20%27%27`)
+    fetch(`${BASE_URL}/resource/${id}?$where=latitude%20is%20not%20null`)
         .then(response => response.json())
         .then(data => setData(data));
 }
@@ -53,21 +53,27 @@ function fetchLocationData(id, setData) {
         });
 }
 
-export function fetchDataSets() {
-    fetch(`${BASE_URL}/api/catalog/v1?column_names=latitude&column_names=longitude&domains=${BASE_URL}&search_context=${BASE_URL}`)
+function fetchValidLocationData(id, resource) {
+    const latitudeIndex = resource.columns_field_name.indexOf('latitude')
+
+}
+export function fetchDataSets(setDataSets) {
+    fetch(`${BASE_URL}/api/catalog/v1?column_names=latitude&column_names=longitude&domains=${DOMAIN}&search_context=${DOMAIN}`)
         .then(response => response.json())
         .then((data) => {
+            console.log(data)
             let dataSets = {};
-            data.forEach((datum) => {
-                const resource = datum.resource
+            data.results.forEach((datum) => {
+                const resource = datum.resource;
                 dataSets[resource.id] = {
                     name: resource.name,
                     description: resource.description,
                     fields: resource.columns_field_name,
                     /* making the assumption that the id is the first field */
-                    id: resource.columns_field_name[0],
+                    id: resource.columns_field_name.id || resource.columns_field_name[0],
                     fetchData: fetchStringData
                 }
+                setDataSets(dataSets)
             });
         });
 }

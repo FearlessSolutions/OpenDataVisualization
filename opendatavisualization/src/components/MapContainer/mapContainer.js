@@ -1,7 +1,7 @@
 import React from 'react'
 import Map from "./map";
 import DataChooser from "./dataChooser";
-import { DATA_SETS } from "../../DataProviders/Socrata";
+import { fetchDataSets } from "../../DataProviders/Socrata";
 import MapControls from "./mapControls";
 
 class MapContainer extends React.Component {
@@ -10,15 +10,18 @@ class MapContainer extends React.Component {
         this.state = {
             data_set: null,
             data: [],
+            data_sets: {}
         };
         this.setDataSet = this.setDataSet.bind(this);
         this.setData = this.setData.bind(this);
+        this.setDataSets = this.setDataSets.bind(this);
+        fetchDataSets(this.setDataSets);
     }
 
     //Set a data set ID on the state
     setDataSet(id) {
         this.setState({ data_set: id });
-        DATA_SETS[id].fetchData(id, this.setData)
+        this.state.data_sets[id].fetchData(id, this.setData)
     }
 
     //Set a data object onto the state
@@ -27,18 +30,23 @@ class MapContainer extends React.Component {
 
     }
 
+    setDataSets(dataSets) {
+        this.setState({ data_sets: dataSets })
+    }
+
     render(props) {
+        let { data, data_set, data_sets } = this.state;
         return (
             <div className={"flex-1"}>
 
-                {this.state.data_set ?
+                {data_set ?
                     <div className={"flex"}>
-                        <MapControls data_set={this.state.data_set} data={this.state.data} setDataSet={this.setDataSet} />
-                        <Map data_set={this.state.data_set} data={this.state.data} />
+                        <MapControls data_sets={data_sets} data_set={data_set} data={data} setDataSet={this.setDataSet} />
+                        <Map data_set={data_set} data={data} />
                     </div>
                     :
                     <div className={"v-center center"}>
-                        <DataChooser value={this.state.data_set} data_set={this.state.data_set} setDataSet={this.setDataSet} data_sets={DATA_SETS} />
+                        <DataChooser value={data_set} setDataSet={this.setDataSet} data_sets={data_sets ? data_sets : {}} />
                     </div>
                 }
             </div>
