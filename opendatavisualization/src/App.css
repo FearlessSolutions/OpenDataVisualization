@@ -58,4 +58,18 @@ html, #root, .App {
   align-items: center;
   height: 85vh; }
 
+.marker .outerColor {
+  fill: #5C3977; }
+.marker .innerColor {
+  fill: white;
+  stroke: #C7C9CB;
+  stroke-width: 2px; }
+
+.orange-marker .outerColor {
+  fill: #EE5340; }
+.orange-marker .innerColor {
+  fill: white;
+  stroke: #E57D6D;
+  stroke-width: 2px; }
+
 /*# sourceMappingURL=App.css.map */

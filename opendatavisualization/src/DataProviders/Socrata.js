@@ -15,7 +15,8 @@ export const DATA_SETS = {
         description: "Closed circuit camera locations capturing activity within 256ft (~2 blocks).",
         fields: ["cameraname", "owner", "registrationtype"],
         id:"id",
-        filter: ["owner"],
+        filter: ["owner",],
+        categories:["owner", "neighborhood"],
         fetchData: fetchData
     },
     "3i3v-ibrt":{
@@ -24,23 +25,23 @@ export const DATA_SETS = {
         fields: ["chargedescription", "district", "age", "sex", "race"],
         id:"arrest",
         fetchData:fetchStringData
-    }
+    },
 };
 
-function fetchData(id, setData){
-    fetch(`${BASE_URL}/${id}`)
+function fetchData(id, setData, offset){
+    fetch(getBaseURL(id, offset))
         .then(response => response.json())
         .then(data => setData( data ));
 }
 
-function fetchStringData(id, setData){
-    fetch(`${BASE_URL}/${id}?$where=latitude%20not%20like%20%27%27`)
+function fetchStringData(id, setData, offset){
+    fetch(getBaseURL(id, offset) + `&$where=latitude%20not%20like%20%27%27`)
         .then(response => response.json())
         .then(data => setData( data ));
 }
 
-function fetchLocationData(id, setData){
-    fetch(`${BASE_URL}/${id}`)
+function fetchLocationData(id, setData, offset){
+    fetch(getBaseURL(id, offset))
         .then(response => response.json())
         .then((data) =>
             {data.forEach((datum)=>{
@@ -53,3 +54,6 @@ function fetchLocationData(id, setData){
         });
 }
 
+function getBaseURL(id, offset){
+    return `${BASE_URL}/${id}?$offset=${offset}&$order=:id%20desc`
+}

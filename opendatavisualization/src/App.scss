@@ -84,6 +84,28 @@ html, #root, .App{
 .v-center{
   display: flex;
   align-items: center;
-
   height: 85vh;
+}
+
+.marker {
+  .outerColor{
+    fill:$purple;
+  }
+  .innerColor {
+    fill: white;
+    stroke:$gray-30;
+    stroke-width: 2px;
+  }
+
+}
+
+.orange-marker {
+  .outerColor{
+    fill:$orange;
+  }
+  .innerColor {
+    fill: white;
+    stroke:$orange-fade;;
+    stroke-width: 2px;
+  }
 }
