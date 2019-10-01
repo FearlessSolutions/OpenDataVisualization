@@ -1,9 +1,10 @@
 import React from 'react'
 import {Map as LeafletMap, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
 import {DATA_SETS} from "../../DataProviders/Socrata";
-import {svgIcon} from "./mapIcons";
+import {getColorIcon, svgIcon} from "./mapIcons";
+import {getColor} from "./mapContainer";
 
-function Map(props) {
+function ODVMap(props) {
 
         let data_type = DATA_SETS[props.data_set];
         let filteredData = props.data.slice();
@@ -44,9 +45,10 @@ function Map(props) {
                     {filteredData.length > 0 &&
                         filteredData.map((data)=>{
                             if (!isNaN(data.latitude) && !isNaN(data.longitude)) {
+                                let icon = getColorIcon(getColor(props.colorMap, data[props.selectedCategory]));
                                 return(
 
-                                    <Marker icon={svgIcon} position={[data.latitude, data.longitude]} key={`marker-${data[data_type.id]}`}>
+                                    <Marker icon={icon} position={[data.latitude, data.longitude]} key={`marker-${data[data_type.id]}`}>
                                         {/*
                                         <Popup>I am a popup</Popup>
                                         <Tooltip>I am a tooltip</Tooltip>
@@ -69,4 +71,4 @@ function Map(props) {
 
 }
 
-export default Map
+export default ODVMap

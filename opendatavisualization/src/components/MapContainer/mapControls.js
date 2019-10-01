@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button"
 import Accordion from 'react-bootstrap/Accordion'
 import ListGroup from 'react-bootstrap/ListGroup'
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import {getColor} from "./mapContainer";
 
 function MapControls(props) {
     const data_type = DATA_SETS[props.data_set];
@@ -42,22 +43,24 @@ function MapControls(props) {
                                 <Accordion.Collapse as={Card.Body} eventKey={`category-${category}`}>
                                         <ListGroup>
                                             {props.categories[category].map((val)=>{
+                                                let selectedColor = getColor(props.colorMap, val);
                                                 return(
                                                     <ListGroup.Item key={`${category}-${val}`}>
                                                         {val}
                                                         <ButtonGroup>
-                                                            <Button>Change Color</Button>
+                                                            <Button variant={selectedColor} onClick={() => props.setColor(category, val)}>Change Color</Button>
                                                             {props.visibleValues.indexOf(val) > -1 || props.selectedCategory !== category || props.visibleValues.length === 0  ?
                                                                 <Button
+                                                                    variant={selectedColor}
                                                                     disabled={props.visibleValues.length === 1}
                                                                     onClick={() => {
                                                                     props.hideOne(category, val)
                                                                     }}>Hide</Button> :
-                                                                <Button onClick={() => {
+                                                                <Button variant={selectedColor} onClick={() => {
                                                                     props.showOne(val)
                                                                 }}>Show</Button>
                                                             }
-                                                            <Button disabled={props.visibleValues.length === 1 && props.visibleValues.indexOf(val) > -1 }
+                                                            <Button variant={selectedColor} disabled={props.visibleValues.length === 1 && props.visibleValues.indexOf(val) > -1 }
                                                                     onClick={()=>props.hideAll(category, val)}>Hide Others</Button>
                                                         </ButtonGroup>
 

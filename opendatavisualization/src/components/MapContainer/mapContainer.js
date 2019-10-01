@@ -1,23 +1,23 @@
 import React from 'react'
-import Map from "./map";
+import ODVMap from "./map";
 import DataChooser from "./dataChooser";
 import {DATA_SETS} from "../../DataProviders/Socrata";
 import MapControls from "./mapControls";
 import ReactGA from 'react-ga';
 
 class MapContainer extends React.Component {
-    colorList = [
-        "_1f77b4",
-        "_ff7f0e",
-        "_2ca02c",
-        "_d62728",
-        "_9467bd",
-        "_8c564b",
-        "_e377c2",
-        "_7f7f7f",
-        "_bcbd22",
-        "_17becf",]
-    ;
+    colorMap = {
+        "_1f77b4":null,
+        "_ff7f0e":null,
+        "_2ca02c":null,
+        "_d62728":null,
+        "_9467bd":null,
+        "_8c564b":null,
+        "_e377c2":null,
+        "_7f7f7f":null,
+        "_bcbd22":null,
+        "_17becf":null,
+    };
     constructor(props){
         super(props);
         this.state = {
@@ -26,7 +26,7 @@ class MapContainer extends React.Component {
             hasMoreData:true,
             categories:[],
             selectedCategory:"",
-            colorMap:{},
+            colorMap: {...this.colorMap},
             visibleValues:[]
         };
         this.setDataSet = this.setDataSet.bind(this);
@@ -35,6 +35,7 @@ class MapContainer extends React.Component {
         this.hideAll = this.hideAll.bind(this);
         this.hideOne = this.hideOne.bind(this);
         this.showOne = this.showOne.bind(this);
+        this.setColor = this.setColor.bind(this);
     }
 
     //Set a data set ID on the state
@@ -59,7 +60,7 @@ class MapContainer extends React.Component {
         let currentData = this.state.data.slice();
         currentData = currentData.concat(data);
         let categories = {};
-        DATA_SETS[this.state.data_set].categories.forEach((cat)=>{
+        DATA_SETS[this.state.data_set].categories && DATA_SETS[this.state.data_set].categories.forEach((cat)=>{
             categories[cat] = [...new Set(currentData.map((catData)=>{return catData[cat]}))];
         });
 
@@ -89,6 +90,23 @@ class MapContainer extends React.Component {
         this.setState({visibleValues:currentVisibleValues})
     }
 
+    setColor(category, value){
+
+        let colorMap = this.state.selectedCategory === category  ? {...this.state.colorMap} : {...this.colorMap};
+        let setColor = false;
+        Object.keys(colorMap).forEach((color) =>{
+
+            if (colorMap[color] === value){
+                colorMap[color] = null;
+            }
+            else if (! setColor && !colorMap[color]){
+                colorMap[color] = value;
+                setColor = color;
+            }
+        });
+        this.setState({selectedCategory:category, colorMap:colorMap})
+
+    }
 
 
     render(props){
@@ -109,13 +127,16 @@ class MapContainer extends React.Component {
                             showOne={this.showOne}
                             visibleValues={this.state.visibleValues}
                             selectedCategory={this.state.selectedCategory}
+                            setColor={this.setColor}
+                            colorMap={this.state.colorMap}
                         />
-                        <Map
+                        <ODVMap
                             data_set={this.state.data_set}
                             data={this.state.data}
                             categories={this.state.categories}
                             visibleValues={this.state.visibleValues}
                             selectedCategory={this.state.selectedCategory}
+                            colorMap={this.state.colorMap}
                         />
                     </div>
                     :
@@ -129,3 +150,14 @@ class MapContainer extends React.Component {
 }
 
 export default MapContainer
+
+export function getColor(colorMap, value){
+    let selectedColor = "_5C3977";
+    Object.keys(colorMap).forEach((color)=>{
+        if (colorMap[color] === value){
+            selectedColor = color
+        }
+    });
+
+    return selectedColor.replace("_", "")
+}
