@@ -61,6 +61,14 @@ html, #root, .App{
   width: 100%;
 }
 
+.popup-list {
+  padding-inline-start: 5px;
+}
+
+.leaflet-popup-content {
+  margin: 13px 12px !important;
+}
+
 .flex{
   display:flex;
   width: 100vw;
@@ -84,6 +92,37 @@ html, #root, .App{
 .v-center{
   display: flex;
   align-items: center;
-
   height: 85vh;
+}
+
+.marker {
+  .outerColor{
+    fill:$purple;
+  }
+  .innerColor {
+    fill: white;
+    stroke:$gray-30;
+    stroke-width: 2px;
+  }
+
+}
+
+.orange-marker {
+  .outerColor{
+    fill:$orange;
+  }
+  .innerColor {
+    fill: white;
+    stroke:$orange-fade;;
+    stroke-width: 2px;
+  }
+}
+
+$color-list: #1f77b4 #ff7f0e #2ca02c #d62728 #9467bd #8c564b #e377c2 #7f7f7f #bcbd22 #17becf #5C3977;
+
+@each $color in $color-list {
+  .btn-#{str_slice(#{$color}, 2)} {
+    background-color: #{$color};
+    color: white;
+  }
 }

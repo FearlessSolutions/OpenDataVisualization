@@ -17,7 +17,7 @@ class  DataChooser extends React.Component{
                 <select value={this.props.data_set} onChange={this.handleChange}>
                     <option value={""}/>
                 {Object.keys(DATA_SETS).map((dataSet) => {
-                    return (<option value={dataSet}>{DATA_SETS[dataSet].name}</option>)
+                    return (<option value={dataSet} key={`select-${dataSet}`}>{DATA_SETS[dataSet].name}</option>)
                 })}
                 </select>
             </div>

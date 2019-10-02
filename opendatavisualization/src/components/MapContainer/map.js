@@ -1,20 +1,19 @@
 import React from 'react'
 import {Map as LeafletMap, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
-import L from 'leaflet'
+import {DATA_SETS} from "../../DataProviders/Socrata";
+import {getColorIcon, svgIcon} from "./mapIcons";
+import {getColor} from "./mapContainer";
 
+function ODVMap(props) {
 
-export const pointerIcon = new L.Icon({
-    iconUrl: require('../../assets/Logo_mark.svg'),
-    iconRetinaUrl: require('../../assets/Logo_mark.svg'),
-    iconAnchor: [16, 16],
-    popupAnchor: [0, -10],
-    iconSize: [32, 32],
-});
+        let data_type = DATA_SETS[props.data_set];
+        let filteredData = props.data.slice();
+        if(props.visibleValues.length>0) {
+            filteredData = filteredData.filter((datum) => {
 
-
-
-class Map extends React.Component {
-    render() {
+                return props.visibleValues.includes(datum[props.selectedCategory])
+            })
+        }
         return (
                 <LeafletMap
                     className={"right"}
@@ -34,7 +33,7 @@ class Map extends React.Component {
                     <TileLayer
                         url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     />
-                    /*
+                    {/*
 
                     <Marker position={[39.289615,-76.607805]} icon={pointerIcon}>
                         <Popup>
@@ -42,17 +41,25 @@ class Map extends React.Component {
                         </Popup>
                     </Marker>
 
-                     */
-                    {this.props.data.length > 0 &&
-                        this.props.data.map((data)=>{
+                     */}
+                    {filteredData.length > 0 &&
+                        filteredData.map((data)=>{
                             if (!isNaN(data.latitude) && !isNaN(data.longitude)) {
+                                let icon = getColorIcon(getColor(props.colorMap, data[props.selectedCategory]));
                                 return(
-                                    <Marker position={[data.latitude, data.longitude]}>
-                                        /*
-                                        <Popup>I am a popup</Popup>
-                                        <Tooltip>I am a tooltip</Tooltip>
-                                         */
+
+                                    <Marker icon={icon} position={[data.latitude, data.longitude]} key={`marker-${data[data_type.id]}`}>
+                                        <Popup>
+                                            <ul className= {'popup-list'}>
+                                                {data_type.fields.map((field)=>{
+                                                    return(
+                                                        <li key={`po-${data[field]}`}><b>{field}:</b> {data[field]}</li>
+                                                    )
+                                                })}
+                                            </ul>
+                                            </Popup>
                                     </Marker>
+
                                 )
                             }
                             else{
@@ -66,7 +73,7 @@ class Map extends React.Component {
                 </LeafletMap>
 
         );
-    }
+
 }
 
-export default Map
+export default ODVMap
