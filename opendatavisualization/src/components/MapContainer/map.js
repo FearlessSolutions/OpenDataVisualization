@@ -49,10 +49,15 @@ function ODVMap(props) {
                                 return(
 
                                     <Marker icon={icon} position={[data.latitude, data.longitude]} key={`marker-${data[data_type.id]}`}>
-                                        {/*
-                                        <Popup>I am a popup</Popup>
-                                        <Tooltip>I am a tooltip</Tooltip>
-                                         */}
+                                        <Popup>
+                                            <ul className= {'popup-list'}>
+                                                {data_type.fields.map((field)=>{
+                                                    return(
+                                                        <li key={`po-${data[field]}`}><b>{field}:</b> {data[field]}</li>
+                                                    )
+                                                })}
+                                            </ul>
+                                            </Popup>
                                     </Marker>
 
                                 )

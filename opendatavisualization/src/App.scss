@@ -61,6 +61,14 @@ html, #root, .App{
   width: 100%;
 }
 
+.popup-list {
+  padding-inline-start: 5px;
+}
+
+.leaflet-popup-content {
+  margin: 13px 12px !important;
+}
+
 .flex{
   display:flex;
   width: 100vw;
