@@ -8,6 +8,17 @@ import ListGroup from 'react-bootstrap/ListGroup'
 
 function MapControls({ data_set, data_sets, setDataSet, data }) {
     const data_type = data_sets[data_set];
+    console.log(data_type.fields[data_type.id])
+    function mapFields(key, value) {
+        if (value && typeof value === "object") {
+            return Object.keys(value).map((param) => {
+                return <div><b>{key}:</b> {mapFields(param, value[param])}</div>
+            })
+        } else {
+            return <div><b>{key}:</b> {value}</div>
+        }
+
+    }
     return (
         <div className={"left"}>
             <DataChooser data_set={data_sets[data_set]} setDataSet={setDataSet} data_sets={data_sets} />
@@ -18,23 +29,24 @@ function MapControls({ data_set, data_sets, setDataSet, data }) {
                 <Accordion>
                     {data.map((datum) => {
                         return (
-                            <Card key={datum[data_type.id]}>
+                            <Card>
                                 <Card.Header >
                                     <Accordion.Toggle as={Button} variant="link" eventKey={datum[data_type.id]}>
-                                        {datum[data_type.fields[data_type.id]]}
+                                        {datum[data_type.id]}
                                     </Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey={datum[data_type.id]}>
                                     <ListGroup>
                                         {data_type.fields.map((field) => {
                                             return (
-                                                <ListGroup.Item key={field}><b>{field}:</b> {datum[field]}</ListGroup.Item>
+                                                <ListGroup.Item>
+                                                    {mapFields(field, datum[field])}
+                                                </ListGroup.Item>
                                             )
                                         })}
                                     </ListGroup>
                                 </Accordion.Collapse>
                             </Card>
-
                         )
                     })}
                 </Accordion>

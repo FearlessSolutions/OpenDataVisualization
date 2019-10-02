@@ -34,9 +34,9 @@ function fetchData(id, setData) {
 }
 
 function fetchStringData(id, setData) {
-    fetch(`${BASE_URL}/resource/${id}?$where=latitude%20is%20not%20null`)
+    fetch(`${BASE_URL}/resource/${id}.json?$where=latitude%20is%20not%20null&$limit=20`)
         .then(response => response.json())
-        .then(data => setData(data));
+        .then(data => { console.log(data); setData(data); });
 }
 
 function fetchLocationData(id, setData) {
@@ -70,7 +70,7 @@ export function fetchDataSets(setDataSets) {
                     description: resource.description,
                     fields: resource.columns_field_name,
                     /* making the assumption that the id is the first field */
-                    id: resource.columns_field_name.id || resource.columns_field_name[0],
+                    id: resource.columns_field_name.includes("id") ? "id" : resource.columns_field_name[0],
                     fetchData: fetchStringData
                 }
                 setDataSets(dataSets)
