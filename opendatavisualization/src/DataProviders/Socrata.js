@@ -26,6 +26,46 @@ export const DATA_SETS = {
         id:"arrest",
         fetchData:fetchStringData
     },
+    "xv8d-bwgi":{
+        name:"Liquor Licenses",
+        description: "Location of Liquor licenses within Baltimore City ",
+        fields: ["tradename", "licensenumber", "licenseclass", "licenseenddate", "licensestatus", "corpname", "establishmentdesc", "dayperweek"],
+        id:"licensenumber",
+        filter: ["corpname",],
+        categories:["licenseclass", "dayperweek", "establishmentdesc"],
+        fetchData: fetchLocation1Data
+
+    },
+    "9agw-sxsr":{
+        name:"311 Service Requests",
+        description:"311 Service Requests",
+        fields:["servicerequestnum", "srstatus", "outcome", "neighborhood", "councildistrict", "policedistrict" ],
+        id:["srrecordid"],
+        categories:["methodreceived", "agency", "outcome"],
+        fetchData: fetchLocation1Data
+    },
+    "us2p-bijb":{
+        name:"Minority and Women's Business Enterprises Certifications",
+        description:"It is the policy of the City of Baltimore to promote equal business opportunity in the City's contracting process by encouraging full and equitable participation by minority and women's business enterprises in the provision of goods and services to the City on a contractual basis.",
+        fields:["company", "firstname", "lastname", "position", "contractstatus"],
+        id:"certno",
+        categories:["category"],
+        fetchData: fetchLocationData,
+    },
+    "qqcv-ihn5":{
+        name:"Vacant Buildings", 
+        description: "Vacant Buildings located throughout the City of Baltimore.",
+        fields: ["block", "lot", "buildingaddress", "noticedate","neighborhood","policedistrict","councildistrict"],
+        id: "referenceid",
+        fetchData: fetchLocationData
+    },
+    "f8a8-4x84":{
+        name:"Vacants to Value - Distressed Market",
+        description: "These areas are characterized by high concentrations of abandoned properties, many of which are owned by the City or are in tax arrears.",
+        fields: ["block","lot","phase","projectname","datestart"],
+        id: "block",
+        fetchData: fetchLocation1Data
+    },
 };
 
 function fetchData(id, setData, offset){
@@ -50,6 +90,20 @@ function fetchLocationData(id, setData, offset){
                     datum.longitude = datum.location.longitude;
                 }
             });
+            setData( data )
+        });
+}
+
+function fetchLocation1Data(id, setData, offset){
+    fetch(getBaseURL(id, offset))
+        .then(response => response.json())
+        .then((data) =>
+        {data.forEach((datum)=>{
+            if(datum.hasOwnProperty('location_1')){
+                datum.latitude = datum.location_1.latitude;
+                datum.longitude = datum.location_1.longitude;
+            }
+        });
             setData( data )
         });
 }
