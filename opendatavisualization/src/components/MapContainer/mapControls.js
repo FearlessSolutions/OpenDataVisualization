@@ -79,9 +79,9 @@ function MapControls(props) {
                     <Accordion.Collapse as={Card.Body} eventKey="data_points">
                         <div style={{overflowY:"auto"}}>
                             <Accordion>
-                                {props.data.map((data)=>{
+                                {props.data.map((data,index)=>{
                                     return(
-                                        <Card key={`card-${data[data_type.id]}`}>
+                                        <Card key={`card-${index}-${data[data_type.id]}`}>
                                             <Card.Header >
                                                 <Accordion.Toggle as={Button} variant="link" eventKey={data[data_type.id]}>
                                                 {data[data_type.fields[0]]}

@@ -52,6 +52,20 @@ export const DATA_SETS = {
         categories:["category"],
         fetchData: fetchLocationData,
     },
+    "qqcv-ihn5":{
+        name:"Vacant Buildings", 
+        description: "Vacant Buildings located throughout the City of Baltimore.",
+        fields: ["block", "lot", "buildingaddress", "noticedate","neighborhood","policedistrict","councildistrict"],
+        id: "referenceid",
+        fetchData: fetchLocationData
+    },
+    "f8a8-4x84":{
+        name:"Vacants to Value - Distressed Market",
+        description: "These areas are characterized by high concentrations of abandoned properties, many of which are owned by the City or are in tax arrears.",
+        fields: ["block","lot","phase","projectname","datestart"],
+        id: "block",
+        fetchData: fetchLocation1Data
+    },
 };
 
 function fetchData(id, setData, offset){

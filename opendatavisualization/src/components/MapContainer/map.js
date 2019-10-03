@@ -43,12 +43,12 @@ function ODVMap(props) {
 
                      */}
                     {filteredData.length > 0 &&
-                        filteredData.map((data)=>{
+                        filteredData.map((data, index)=>{
                             if (!isNaN(data.latitude) && !isNaN(data.longitude)) {
                                 let icon = getColorIcon(getColor(props.colorMap, data[props.selectedCategory]));
                                 return(
 
-                                    <Marker icon={icon} position={[data.latitude, data.longitude]} key={`marker-${data[data_type.id]}`}>
+                                    <Marker icon={icon} position={[data.latitude, data.longitude]} key={`marker-${index}-${data[data_type.id]}`}>
                                         <Popup>
                                             <ul className= {'popup-list'}>
                                                 {data_type.fields.map((field)=>{
