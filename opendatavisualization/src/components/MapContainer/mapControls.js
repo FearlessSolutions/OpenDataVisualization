@@ -7,6 +7,7 @@ import Accordion from 'react-bootstrap/Accordion'
 import ListGroup from 'react-bootstrap/ListGroup'
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import {getColor} from "./mapContainer";
+import DataPoint from "./dataPoints"
 
 function MapControls(props) {
     const data_type = DATA_SETS[props.data_set];
@@ -72,38 +73,7 @@ function MapControls(props) {
                             </Card>
                         )
                     })}
-                <Card>
-                    <Accordion.Toggle as={Card.Header} eventKey="data_points">
-                        Data Points
-                    </Accordion.Toggle>
-                    <Accordion.Collapse as={Card.Body} eventKey="data_points">
-                        <div style={{overflowY:"auto"}}>
-                            <Accordion>
-                                {props.data.map((data,index)=>{
-                                    return(
-                                        <Card key={`card-${index}-${data[data_type.id]}`}>
-                                            <Card.Header >
-                                                <Accordion.Toggle as={Button} variant="link" eventKey={data[data_type.id]}>
-                                                {data[data_type.fields[0]]}
-                                                </Accordion.Toggle>
-                                            </Card.Header>
-                                            <Accordion.Collapse eventKey={data[data_type.id]}>
-                                                <ListGroup>
-                                                {data_type.fields.map((field)=>{
-                                                    return(
-                                                        <ListGroup.Item key={`lg-${data[field]}`}><b>{field}:</b> {data[field]}</ListGroup.Item>
-                                                    )
-                                                })}
-                                                </ListGroup>
-                                            </Accordion.Collapse>
-                                        </Card>
-
-                                    )
-                                })}
-                            </Accordion>
-                        </div>
-                    </Accordion.Collapse>
-                </Card>
+                    <DataPoint data={props.data} data_type= {data_type}  />
             </Accordion>
         </div>
     )
