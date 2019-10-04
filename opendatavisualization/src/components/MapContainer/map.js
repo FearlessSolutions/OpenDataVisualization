@@ -3,6 +3,8 @@ import {Map as LeafletMap, TileLayer, Marker, Popup, Tooltip} from 'react-leafle
 import {DATA_SETS} from "../../DataProviders/Socrata";
 import {getColorIcon, svgIcon} from "./mapIcons";
 import {getColor} from "./mapContainer";
+import MarkerLayer from "./MapLayers/markerLayer";
+import HeatmapLayer from "react-leaflet-heatmap-layer/src/HeatmapLayer";
 
 function ODVMap(props) {
 
@@ -42,32 +44,21 @@ function ODVMap(props) {
                     </Marker>
 
                      */}
-                    {filteredData.length > 0 &&
-                        filteredData.map((data, index)=>{
-                            if (!isNaN(data.latitude) && !isNaN(data.longitude)) {
-                                let icon = getColorIcon(getColor(props.colorMap, data[props.selectedCategory]));
-                                return(
-
-                                    <Marker icon={icon} position={[data.latitude, data.longitude]} key={`marker-${index}-${data[data_type.id]}`}>
-                                        <Popup>
-                                            <ul className= {'popup-list'}>
-                                                {data_type.fields.map((field)=>{
-                                                    return(
-                                                        <li key={`po-${data[field]}`}><b>{field}:</b> {data[field]}</li>
-                                                    )
-                                                })}
-                                            </ul>
-                                            </Popup>
-                                    </Marker>
-
-                                )
-                            }
-                            else{
-
-                                return null
-                            }
-
-                        })
+                    {props.mapType === 'heat' ?
+                        <HeatmapLayer
+                            fitBoundsOnLoaddocker
+                            fitBoundsOnUpdate
+                            points={filteredData}
+                            longitudeExtractor={m => m.longitude}
+                            latitudeExtractor={m => m.latitude}
+                            intensityExtractor={() => 1}
+                        /> :
+                        <MarkerLayer
+                            filteredData={filteredData}
+                            colorMap={props.colorMap}
+                            selectedCategory={props.selectedCategory}
+                            data_type={data_type}
+                        />
                     }
 
                 </LeafletMap>

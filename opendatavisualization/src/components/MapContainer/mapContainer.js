@@ -27,7 +27,8 @@ class MapContainer extends React.Component {
             categories:[],
             selectedCategory:"",
             colorMap: {...this.colorMap},
-            visibleValues:[]
+            visibleValues:[],
+            mapType:'heat'
         };
         this.setDataSet = this.setDataSet.bind(this);
         this.setData = this.setData.bind(this);
@@ -137,6 +138,7 @@ class MapContainer extends React.Component {
                             visibleValues={this.state.visibleValues}
                             selectedCategory={this.state.selectedCategory}
                             colorMap={this.state.colorMap}
+                            mapType={this.state.mapType}
                         />
                     </div>
                     :
